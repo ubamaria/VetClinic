@@ -6,19 +6,19 @@ using System.Text;
 namespace VetClinicBusinessLogic.BindingModels
 {
     [DataContract]
-    public class PetBindingModel
+    public class PaymentBindingModel
     {
         [DataMember]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [DataMember]
-        public string PetName { get; set; }
+        public int ReceptionId { get; set; }
         [DataMember]
-        public string Kind { get; set; } //вид
+        public int ClientId { get; set; }
         [DataMember]
-        public string Breed { get; set; } //порода
+        public int PetId { get; set; }
         [DataMember]
-        public int Age { get; set; }
+        public DateTime DatePayment { get; set; }
         [DataMember]
-        public string Gender { get; set; } //пол
+        public int Sum { get; set; }
     }
 }

@@ -8,10 +8,8 @@ namespace VetClinicBusinessLogic.Interfaces
 {
     public interface IPet
     {
-        List<PetViewModel> GetList();
-        PetViewModel GetElement(int id);
-        void AddElement(PetBindingModel model);
-        void UpdateElement(PetBindingModel model);
-        void DeleteElement(int id);
+        List<PetViewModel> Read(PetBindingModel model);
+        void CreateOrUpdate(PetBindingModel model);
+        void Delete(PetBindingModel model);
     }
 }

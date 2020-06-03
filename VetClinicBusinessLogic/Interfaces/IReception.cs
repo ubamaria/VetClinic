@@ -6,10 +6,10 @@ using VetClinicBusinessLogic.ViewModels;
 
 namespace VetClinicBusinessLogic.Interfaces
 {
-    public interface IRecording
+    public interface IReception
     {
-        List<RecordingViewModel> Read(RecordingBindingModel model);
-        void CreateOrUpdate(RecordingBindingModel model);
-        void Delete(RecordingBindingModel model);
+        List<ReceptionViewModel> Read(ReceptionBindingModel model);
+        void CreateOrUpdate(ReceptionBindingModel model);
+        void Delete(ReceptionBindingModel model);
     }
 }

@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace VetClinicBusinessLogic.ViewModels
 {
-    public class RecordingServiceViewModel
+    [DataContract]
+    public class ReceptionServiceViewModel
     {
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public int ServiceId { get; set; }
+        [DataMember]
         public int RecordingId { get; set; }
+        [DataMember]
         [DisplayName("Название услуги")]
         public string ServiceName { get; set; }
+        [DataMember]
         [DisplayName("Количество")]
         public int Count { get; set; }
     }

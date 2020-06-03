@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace VetClinicDatabaseImplement.Models
+namespace VetClinicBusinessLogic.BindingModels
 {
     [DataContract]
-    public class RecordingService
+    public class ReceptionServiceBindingModel
     {
         [DataMember]
         public int Id { get; set; }
         [DataMember]
         public int ServiceId { get; set; }
         [DataMember]
-        public int RecordingId { get; set; }
+        public int ReceptionId { get; set; }
         [DataMember]
-        [Required]
+        public int PetId { get; set; }
+        [DataMember]
         public int Count { get; set; }
-        public virtual Service Service { get; set; }
-        public virtual Recording Recording { get; set; }
     }
 }

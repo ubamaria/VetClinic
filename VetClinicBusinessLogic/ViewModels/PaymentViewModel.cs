@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace VetClinicBusinessLogic.BindingModels
+namespace VetClinicBusinessLogic.ViewModels
 {
     [DataContract]
-    public class ClientPetBindingModel
+    public class PaymentViewModel
     {
         [DataMember]
         public int Id { get; set; }
@@ -15,10 +16,12 @@ namespace VetClinicBusinessLogic.BindingModels
         [DataMember]
         public int PetId { get; set; }
         [DataMember]
-        public int PetName { get; set; }
+        public int ReceptionId { get; set; }
         [DataMember]
-        public string ClientFIO { get; set; }
+        [DisplayName("Дата оплаты")]
+        public DateTime DatePayment { get; set; }
         [DataMember]
-        public int Count { get; set; }
+        [DisplayName("Сумма")]
+        public int Sum { get; set; }
     }
 }

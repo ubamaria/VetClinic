@@ -22,6 +22,6 @@ namespace VetClinicDatabaseImplement.Models
         [Required]
         public string Password { get; set; }
         [ForeignKey("ClientId")]
-        public virtual List<Recording> Recordings { get; set; }
+        public virtual List<Reception> Recordings { get; set; }
     }
 }

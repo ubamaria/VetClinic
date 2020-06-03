@@ -8,16 +8,6 @@ namespace VetClinicBusinessLogic.Interfaces
 {
     public interface IService
     {
-        List<ServiceViewModel> GetList();
-
-        List<ServiceViewModel> GetFilteredList();
-
-        ServiceViewModel GetElement(int id);
-
-        void AddElement(ServiceBindingModel model);
-
-        void UpdateElement(ServiceBindingModel model);
-
-        void DeleteElement(int id);
+        List<ServiceViewModel> Read(ServiceViewModel model);
     }
 }

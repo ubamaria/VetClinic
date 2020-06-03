@@ -6,22 +6,21 @@ using System.Text;
 namespace VetClinicBusinessLogic.BindingModels
 {
     [DataContract]
-    public class ClientBindingModel
+    public class ReceptionBindingModel
     {
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string ClientFIO { get; set; }
+        public int ClientId { get; set; }
         [DataMember]
-        public string Password { get; set; }
+        public int PetId { get; set; }
         [DataMember]
-        public string Email { get; set; }
+        public decimal Sum { get; set; }
         [DataMember]
-        public string Login { get; set; }
+        public DateTime? Date { get; set; }
         [DataMember]
-        public bool Block { get; set; }
+        public DateTime? DateTo { get; set; }
         [DataMember]
-        public string Phone { get; set; }
-        public virtual List<ClientPetBindingModel> ClientPets { get; set; }
+        public virtual List<ReceptionServiceBindingModel> ReceptionServices { get; set; }
     }
 }

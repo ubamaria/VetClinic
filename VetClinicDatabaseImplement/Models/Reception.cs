@@ -8,7 +8,7 @@ using System.Text;
 namespace VetClinicDatabaseImplement.Models
 {
     [DataContract]
-    public class Recording
+    public class Reception
     {
         [DataMember]
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace VetClinicDatabaseImplement.Models
         public decimal TotalSum { get; set; }
 
         [DataMember]
-        public RecordingStatus RecordingStatus { get; set; }
+        public ReceptionStatus RecordingStatus { get; set; }
 
         [DataMember]
         [Required]
@@ -33,6 +33,6 @@ namespace VetClinicDatabaseImplement.Models
         public virtual Client Client { get; set; }
 
         [ForeignKey("RecordingId")]
-        public virtual List<RecordingService> RecordingServices { get; set; }
+        public virtual List<ReceptionService> RecordingServices { get; set; }
     }
 }

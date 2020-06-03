@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text;
 
 namespace VetClinicDatabaseImplement.Models
 {
     [DataContract]
-    public class Service
+    public class ReceptionService
     {
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        [Required]
-        public string ServiceName { get; set; }
+        public int ServiceId { get; set; }
+        [DataMember]
+        public int RecordingId { get; set; }
         [DataMember]
         [Required]
-        public int Price { get; set; }
-        [ForeignKey("ServiceId")]
-        public virtual List<ReceptionService> RecordingServices { get; set; }
+        public int Count { get; set; }
+        public virtual Service Service { get; set; }
+        public virtual Reception Recording { get; set; }
     }
 }

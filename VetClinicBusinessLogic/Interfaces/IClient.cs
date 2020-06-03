@@ -8,10 +8,8 @@ namespace VetClinicBusinessLogic.Interfaces
 {
     public interface IClient
     {
-        List<ClientViewModel> GetList();
-        ClientViewModel GetElement(int id);
-        void AddElement(ClientBindingModel model);
-        void UpdateElement(ClientBindingModel model);
-        void DeleteElement(int id);
+        List<ClientViewModel> Read(ClientBindingModel model);
+        void CreateOrUpdate(ClientBindingModel model);
+        void Delete(ClientBindingModel model);
     }
 }
