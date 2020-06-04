@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
+using VetClinicBusinessLogic.Enums;
 
 namespace VetClinicBusinessLogic.BindingModels
 {
@@ -9,17 +10,21 @@ namespace VetClinicBusinessLogic.BindingModels
     public class ReceptionBindingModel
     {
         [DataMember]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [DataMember]
         public int ClientId { get; set; }
         [DataMember]
+        public DateTime DateCreate { get; set; } 
+        [DataMember]
         public int PetId { get; set; }
         [DataMember]
-        public decimal Sum { get; set; }
+        public decimal TotalSum { get; set; }
         [DataMember]
         public DateTime? Date { get; set; }
         [DataMember]
         public DateTime? DateTo { get; set; }
+        [DataMember]
+        public ReceptionStatus ReceptionStatus { get; set; }
         [DataMember]
         public virtual List<ReceptionServiceBindingModel> ReceptionServices { get; set; }
     }

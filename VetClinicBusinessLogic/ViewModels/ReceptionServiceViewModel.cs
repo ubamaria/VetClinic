@@ -14,7 +14,9 @@ namespace VetClinicBusinessLogic.ViewModels
         [DataMember]
         public int ServiceId { get; set; }
         [DataMember]
-        public int RecordingId { get; set; }
+        public int ReceptionId { get; set; }
+        [DataMember]
+        public int Price { get; set; }
         [DataMember]
         [DisplayName("Название услуги")]
         public string ServiceName { get; set; }

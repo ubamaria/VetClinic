@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using VetClinicBusinessLogic.BindingModels;
+using VetClinicBusinessLogic.Enums;
 
 namespace VetClinicBusinessLogic.ViewModels
 {
@@ -21,18 +22,19 @@ namespace VetClinicBusinessLogic.ViewModels
         public string ClientFIO { get; set; }
         [DataMember]
         [DisplayName("Имя питомца")]
-        public int PetName { get; set; }
+        public string PetName { get; set; }
         [DataMember]
         [DisplayName("Сумма")]
-        public decimal Sum { get; set; }
+        public decimal TotalSum { get; set; }
         [DataMember]
         [DisplayName("Статус приема")]
-        public string ReceptionStatus { get; set; }
+        public ReceptionStatus ReceptionStatus { get; set; }
         [DataMember]
 
         [DisplayName("Дата создания записи на прием")]
-        public string DateCreate { get; set; }
+        public DateTime DateCreate { get; set; }
+
         [DataMember]
-        public virtual List<ReceptionServiceBindingModel> ReceptionServices { get; set; }
+        public virtual List<ReceptionServiceViewModel> ReceptionServices { get; set; }
     }
 }

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetClinicView", "VetClinicView\VetClinicView.csproj", "{DDBC1788-ECDE-44CC-A3FB-3C0911E408FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetClinicBusinessLogic", "VetClinicBusinessLogic\VetClinicBusinessLogic.csproj", "{F019155A-E00F-4181-8646-B15D3963813D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetClinicBusinessLogic", "VetClinicBusinessLogic\VetClinicBusinessLogic.csproj", "{F019155A-E00F-4181-8646-B15D3963813D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetClinicDatabaseImplement", "VetClinicDatabaseImplement\VetClinicDatabaseImplement.csproj", "{22C1D838-22C3-4CD1-8A23-BBBD0BE48B39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetClinicDatabaseImplement", "VetClinicDatabaseImplement\VetClinicDatabaseImplement.csproj", "{22C1D838-22C3-4CD1-8A23-BBBD0BE48B39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetClinicWbClient", "VetClinicWbClient\VetClinicWbClient.csproj", "{E8418EAE-4030-4026-A0EE-29FF3B960548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DDBC1788-ECDE-44CC-A3FB-3C0911E408FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDBC1788-ECDE-44CC-A3FB-3C0911E408FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDBC1788-ECDE-44CC-A3FB-3C0911E408FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDBC1788-ECDE-44CC-A3FB-3C0911E408FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F019155A-E00F-4181-8646-B15D3963813D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F019155A-E00F-4181-8646-B15D3963813D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F019155A-E00F-4181-8646-B15D3963813D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{22C1D838-22C3-4CD1-8A23-BBBD0BE48B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22C1D838-22C3-4CD1-8A23-BBBD0BE48B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22C1D838-22C3-4CD1-8A23-BBBD0BE48B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8418EAE-4030-4026-A0EE-29FF3B960548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8418EAE-4030-4026-A0EE-29FF3B960548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8418EAE-4030-4026-A0EE-29FF3B960548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8418EAE-4030-4026-A0EE-29FF3B960548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

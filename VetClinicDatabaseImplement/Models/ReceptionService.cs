@@ -6,19 +6,14 @@ using System.Text;
 
 namespace VetClinicDatabaseImplement.Models
 {
-    [DataContract]
     public class ReceptionService
     {
-        [DataMember]
         public int Id { get; set; }
-        [DataMember]
         public int ServiceId { get; set; }
-        [DataMember]
-        public int RecordingId { get; set; }
-        [DataMember]
+        public int ReceptionId { get; set; }
         [Required]
         public int Count { get; set; }
         public virtual Service Service { get; set; }
-        public virtual Reception Recording { get; set; }
+        public virtual Reception Reception { get; set; }
     }
 }

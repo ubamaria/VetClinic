@@ -7,21 +7,28 @@ using System.Text;
 
 namespace VetClinicDatabaseImplement.Models
 {
-    [DataContract]
     public class Client
     {
-        [DataMember]
         public int Id { get; set; }
-        [DataMember]
         [Required]
         public string ClientFIO { get; set; }
-        [DataMember]
+        [Required]
+        public string PetName { get; set; }
+        [Required]
+        public string Login { get; set; }
         [Required]
         public string Email { get; set; }
-        [DataMember]
         [Required]
         public string Password { get; set; }
+        [Required]
+        public string Phone { get; set; }
+        [Required]
+        public bool Block { get; set; }
         [ForeignKey("ClientId")]
-        public virtual List<Reception> Recordings { get; set; }
+        public virtual List<Reception> Receptions { get; set; }
+        [ForeignKey("ClientId")]
+        public virtual List<Payment> Payments { get; set; }
+        [ForeignKey("ClientId")]
+        public virtual List<ClientPet> ClientPets { get; set; }
     }
 }

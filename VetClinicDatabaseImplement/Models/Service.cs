@@ -7,18 +7,14 @@ using System.Text;
 
 namespace VetClinicDatabaseImplement.Models
 {
-    [DataContract]
     public class Service
     {
-        [DataMember]
         public int Id { get; set; }
-        [DataMember]
         [Required]
         public string ServiceName { get; set; }
-        [DataMember]
         [Required]
         public int Price { get; set; }
         [ForeignKey("ServiceId")]
-        public virtual List<ReceptionService> RecordingServices { get; set; }
+        public virtual List<ReceptionService> ReceptionServices { get; set; }
     }
 }

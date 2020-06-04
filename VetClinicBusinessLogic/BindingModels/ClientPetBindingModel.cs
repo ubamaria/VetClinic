@@ -9,7 +9,7 @@ namespace VetClinicBusinessLogic.BindingModels
     public class ClientPetBindingModel
     {
         [DataMember]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [DataMember]
         public int ClientId { get; set; }
         [DataMember]

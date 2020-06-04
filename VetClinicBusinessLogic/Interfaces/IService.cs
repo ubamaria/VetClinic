@@ -8,6 +8,6 @@ namespace VetClinicBusinessLogic.Interfaces
 {
     public interface IService
     {
-        List<ServiceViewModel> Read(ServiceViewModel model);
+        List<ServiceViewModel> Read(ServiceBindingModel model);
     }
 }
