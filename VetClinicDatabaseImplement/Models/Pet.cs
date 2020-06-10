@@ -12,6 +12,8 @@ namespace VetClinicDatabaseImplement.Models
         public int Id { get; set; }
         [Required]
         public string PetName { get; set; }
+       [Required]
+        public int ClientId { get; set; }
         [Required]
         public string Kind { get; set; } //вид
         [Required]
@@ -20,7 +22,6 @@ namespace VetClinicDatabaseImplement.Models
         public int Age { get; set; }
         [Required]
         public string Gender { get; set; } //пол
-        [ForeignKey("PetId")]
-        public virtual List<ClientPet> ClientPets { get; set; }
+
     }
 }

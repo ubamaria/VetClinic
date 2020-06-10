@@ -22,6 +22,11 @@ namespace VetClinicWbClient.Controllers
         {
             return View();
         }
+        public ActionResult ProfilePet()
+        {
+            ViewBag.Pet = Program.Pet;
+            return View();
+        }
         [HttpPost]
         public ViewResult Pet(PetModel pet)
         {
@@ -30,33 +35,14 @@ namespace VetClinicWbClient.Controllers
                 ViewBag.ClientPets = _pet.Read(null);
                 return View(pet);
             }
-            if (pet.ClientPets == null)
-            {
-                ViewBag.ClientPets = _pet.Read(null);
-                ModelState.AddModelError("", "Питомец не добавлен");
-                return View(pet);
-            }
-            var clientPets = new List<ClientPetBindingModel>();
-            foreach (var p in pet.ClientPets)
-            {
-                if (p.Value > 0)
-                {
-                    clientPets.Add(new ClientPetBindingModel
-                    {
-                        PetId = p.Key,
-                        Count = p.Value
-                    });
-                }
-            }
             _pet.CreateOrUpdate(new PetBindingModel
                 {
-                    //ClientId = Program.Client.Id,
+                    ClientId = Program.Client.Id,
                     PetName = pet.PetName,
                     Kind = pet.Kind,
                     Breed = pet.Breed,
                     Age = pet.Age,
-                    Gender = pet.Gender,
-                    ClientPets = clientPets
+                    Gender = pet.Gender
                 });
                 ModelState.AddModelError("", "Вы успешно добавили питомца");
                 return View(pet);

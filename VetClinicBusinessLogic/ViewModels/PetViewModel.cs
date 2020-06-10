@@ -11,6 +11,8 @@ namespace VetClinicBusinessLogic.ViewModels
     {
         [DataMember]
         public int Id { get; set; }
+        [DataMember]
+        public int ClientId { get; set; }
         [DisplayName("Кличка питомца")]
         [DataMember]
         public string PetName { get; set; }

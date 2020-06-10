@@ -9,6 +9,7 @@ namespace VetClinicWbClient.Models
     public class PetModel
     {
         public int Id { get; set; }
+        public int ClientId { get; set; }
         [Required(ErrorMessage = "Пожалуйста, введите имя")]
         public string PetName { get; set; }
         [Required(ErrorMessage = "Пожалуйста, введите вид")]

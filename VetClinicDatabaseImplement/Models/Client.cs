@@ -26,5 +26,7 @@ namespace VetClinicDatabaseImplement.Models
         public virtual List<Reception> Receptions { get; set; }
         [ForeignKey("ClientId")]
         public virtual List<Payment> Payments { get; set; }
+        [ForeignKey("ClientId")]
+        public virtual List<ClientPet> ClientPets { get; set; }
     }
 }

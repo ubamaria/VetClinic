@@ -12,16 +12,18 @@ namespace VetClinicWbClient.Controllers
     public class ClientController : Controller
     {
         private readonly IClient _client;
-        public ClientController(IClient client)
+        private readonly IPet _pet;
+        public ClientController(IClient client, IPet pet)
         {
             _client = client;
+            _pet = pet;
         }
         public ActionResult Profile()
         {
-            ViewBag.Client = Program.Client;
+            ViewBag.Client = Program.Client;           
             return View();
         }
-        public ActionResult Pet()
+        public ActionResult ProfilePet()
         {
             ViewBag.Pet = Program.Pet;
             return View();

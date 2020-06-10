@@ -29,12 +29,13 @@ namespace VetClinicDatabaseImplement.Implements
                             {
                                 throw new Exception("Такой питомец уже существует");
                             }
-                            //element.PetName = model.PetName;
-                            //element.Kind = model.Kind;
-                            //element.Breed = model.Breed;
-                            //element.Age = model.Age;
-                            //element.Gender = model.Gender;
-                            //context.SaveChanges();
+                            element.PetName = model.PetName;
+                            element.Kind = model.Kind;
+                            element.Breed = model.Breed;
+                            element.Age = model.Age;
+                            element.Gender = model.Gender;
+                            element.ClientId = model.ClientId;
+                            context.SaveChanges();
                         }
                         else
                         {
@@ -43,28 +44,11 @@ namespace VetClinicDatabaseImplement.Implements
                             element.Breed = model.Breed;
                             element.Age = model.Age;
                             element.Gender = model.Gender;
+                            element.ClientId = model.ClientId;
                         }
                         context.Pets.Add(element);
                         context.SaveChanges();
 
-                        var groupClients = model.ClientPets
-                           .GroupBy(rec => rec.ClientId)
-                           .Select(rec => new
-                           {
-                               ClientId = rec.Key,
-                               Count = rec.Sum(r => r.Count)
-                           });
-
-                        foreach (var groupClient in groupClients)
-                        {
-                            context.ClientPets.Add(new ClientPet
-                            {
-                                PetId = element.Id,
-                                ClientId = groupClient.ClientId,
-                                Count = groupClient.Count
-                            });
-                            context.SaveChanges();
-                        }
                         transaction.Commit();
                     }
                     catch (Exception)
@@ -117,6 +101,7 @@ namespace VetClinicDatabaseImplement.Implements
                 .Select(rec => new PetViewModel
                 {
                     Id = rec.Id,
+                    //ClientId = rec.ClientId,
                     Kind = rec.Kind,
                     PetName = rec.PetName,
                     Breed = rec.Breed,

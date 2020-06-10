@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Профиль питомца";
+}
+
+<div class="text-center text-info">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+<p>
+    Имя: @ViewBag.Pet.PetName<br>
+    Вид: @ViewBag.Pet.Kind<br>
+    Порода: @ViewBag.Pet.Breed<br>
+    Возраст: @ViewBag.Pet.Age<br>
+    Пол: @ViewBag.Pet.Gender
+</p>
+
+
+
