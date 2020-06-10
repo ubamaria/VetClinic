@@ -18,7 +18,12 @@ namespace VetClinicWbClient.Controllers
         }
         public ActionResult Profile()
         {
-            ViewBag.User = Program.Client;
+            ViewBag.Client = Program.Client;
+            return View();
+        }
+        public ActionResult Pet()
+        {
+            ViewBag.Pet = Program.Pet;
             return View();
         }
         public IActionResult Login()
@@ -46,7 +51,7 @@ namespace VetClinicWbClient.Controllers
             Program.Client = clientView;
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult Logout()
+        public IActionResult Exit()
         {
             Program.Client = null;
             return RedirectToAction("Index", "Home");

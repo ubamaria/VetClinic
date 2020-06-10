@@ -13,6 +13,8 @@ namespace VetClinicBusinessLogic.BindingModels
         [DataMember]
         public string PetName { get; set; }
         [DataMember]
+        public int ClientId { get; set; }
+        [DataMember]
         public string Kind { get; set; } //вид
         [DataMember]
         public string Breed { get; set; } //порода
@@ -20,5 +22,6 @@ namespace VetClinicBusinessLogic.BindingModels
         public int Age { get; set; }
         [DataMember]
         public string Gender { get; set; } //пол
+        public List<ClientPetBindingModel> ClientPets { get; set; }
     }
 }

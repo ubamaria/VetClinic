@@ -95,6 +95,16 @@ namespace VetClinicWbClient.Controllers
             }
             return sum;
         }
+        private int CalculateLeftSum(ReceptionViewModel reception)
+        {
+            int sum = reception.TotalSum;
+            int paidSum = _payment.Read(new PaymentBindingModel
+            {
+                ReceptionId = reception.Id
+            }).Select(rec => rec.Sum).Sum();
+
+            return sum - paidSum;
+        }
         public IActionResult Payment(int id)
         {
             var reception = _reception.Read(new ReceptionBindingModel
@@ -102,6 +112,7 @@ namespace VetClinicWbClient.Controllers
                 Id = id
             }).FirstOrDefault();
             ViewBag.Reception = reception;
+            ViewBag.LeftSum = CalculateLeftSum(reception);
             return View();
         }
         [HttpPost]
@@ -111,14 +122,19 @@ namespace VetClinicWbClient.Controllers
             {
                 Id = model.ReceptionId
             }).FirstOrDefault();
-
+            int leftSum = CalculateLeftSum(reception);
             if (!ModelState.IsValid)
             {
                 ViewBag.Travel = reception;
-
+                ViewBag.LeftSum = leftSum;
                 return View(model);
             }
-
+            if (leftSum < model.Sum)
+            {
+                ViewBag.Reception = reception;
+                ViewBag.LeftSum = leftSum;
+                return View(model);
+            }
             _payment.CreateOrUpdate(new PaymentBindingModel
             {
                 ReceptionId = reception.Id,
@@ -126,14 +142,13 @@ namespace VetClinicWbClient.Controllers
                 DatePayment = DateTime.Now,
                 Sum = model.Sum
             });
-
+            leftSum -= model.Sum;
             _reception.CreateOrUpdate(new ReceptionBindingModel
             {
                 Id = reception.Id,
                 ClientId = reception.ClientId,
                 DateCreate = reception.DateCreate,
-
-                ReceptionStatus = ReceptionStatus.Оплачен,
+                ReceptionStatus = leftSum > 0 ? ReceptionStatus.ОплаченЧастично : ReceptionStatus.Оплачен,
                 TotalSum = reception.TotalSum,
                 ReceptionServices = reception.ReceptionServices.Select(rec => new ReceptionServiceBindingModel
                 {

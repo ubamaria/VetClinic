@@ -14,8 +14,6 @@ namespace VetClinicBusinessLogic.ViewModels
         [DataMember]
         public int ClientId { get; set; }
         [DataMember]
-        public int PetId { get; set; }
-        [DataMember]
         public int ReceptionId { get; set; }
         [DataMember]
         [DisplayName("Дата оплаты")]

@@ -1,0 +1,30 @@
+﻿@model VetClinicWbClient.Models.CreateReceptionModel
+@{
+    ViewData["Title"] = "Запись на прием";
+}
+<div class="text-center text-info">
+    <h1>@ViewData["Title"]</h1>
+</div>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @style = "color: red" })
+    <p>Услуги:
+    </p>
+    <table class="table">
+        <tr>
+            <td>Наименование</td>
+            <td>Цена</td>
+            <td>Количество</td>
+        </tr>
+        @foreach (VetClinicBusinessLogic.ViewModels.ServiceViewModel service in ViewBag.ReceptionServices)
+        {
+    <tr>
+        <td>@service.ServiceName</td>
+        <td>@service.Price</td>
+        <td><input type="number" name="Model.ReceptionServices[@service.Id]" value="0" min="0" /></td>
+    </tr>
+        }    </table>
+    <button type="submit" class="btn btn-info btn-sm">Записаться</button>
+}
+

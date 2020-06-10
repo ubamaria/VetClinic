@@ -13,17 +13,17 @@ namespace VetClinicDatabaseImplement.Models
         public int Id { get; set; }
 
         public int ClientId { get; set; }
-        public int PetId { get; set; }
+
 
         [Required]
-        public decimal TotalSum { get; set; }
+        public int TotalSum { get; set; }
 
         public ReceptionStatus ReceptionStatus { get; set; }
 
         [Required]
         public DateTime DateCreate { get; set; }
 
-        public virtual Client Client { get; set; }
+        public Client Client { get; set; }
 
         [ForeignKey("ReceptionId")]
         public virtual List<ReceptionService> ReceptionServices { get; set; }

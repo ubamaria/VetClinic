@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetClinicDatabaseImplement;
 
 namespace VetClinicDatabaseImplement.Migrations
 {
     [DbContext(typeof(VetClinicDatabase))]
-    partial class VetClinicDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200608140703_Mig3")]
+    partial class Mig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,33 +54,6 @@ namespace VetClinicDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("VetClinicDatabaseImplement.Models.ClientPet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClientFIO")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PetId");
-
-                    b.ToTable("ClientPets");
                 });
 
             modelBuilder.Entity("VetClinicDatabaseImplement.Models.Payment", b =>
@@ -208,15 +183,6 @@ namespace VetClinicDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("VetClinicDatabaseImplement.Models.ClientPet", b =>
-                {
-                    b.HasOne("VetClinicDatabaseImplement.Models.Pet", "Pet")
-                        .WithMany("ClientPets")
-                        .HasForeignKey("PetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("VetClinicDatabaseImplement.Models.Payment", b =>

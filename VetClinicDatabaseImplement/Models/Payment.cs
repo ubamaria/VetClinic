@@ -11,7 +11,6 @@ namespace VetClinicDatabaseImplement.Models
         [Required]
         public int ReceptionId { get; set; }       
         public int ClientId { get; set; }      
-        public int PetId { get; set; }
         [Required]
         public DateTime DatePayment { get; set; }
         [Required]

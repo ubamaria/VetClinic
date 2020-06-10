@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VetClinicDatabaseImplement.Migrations
 {
-    public partial class FirstMig : Migration
+    public partial class Mig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,23 +27,6 @@ namespace VetClinicDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PetName = table.Column<string>(nullable: false),
-                    Kind = table.Column<string>(nullable: false),
-                    Breed = table.Column<string>(nullable: false),
-                    Age = table.Column<int>(nullable: false),
-                    Gender = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pets", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Services",
                 columns: table => new
                 {
@@ -64,8 +47,7 @@ namespace VetClinicDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClientId = table.Column<int>(nullable: false),
-                    PetId = table.Column<int>(nullable: false),
-                    TotalSum = table.Column<decimal>(nullable: false),
+                    TotalSum = table.Column<int>(nullable: false),
                     ReceptionStatus = table.Column<int>(nullable: false),
                     DateCreate = table.Column<DateTime>(nullable: false)
                 },
@@ -81,34 +63,6 @@ namespace VetClinicDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientPets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(nullable: false),
-                    PetId = table.Column<int>(nullable: false),
-                    ClientFIO = table.Column<string>(nullable: false),
-                    Count = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClientPets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ClientPets_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ClientPets_Pets_PetId",
-                        column: x => x.PetId,
-                        principalTable: "Pets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Payments",
                 columns: table => new
                 {
@@ -116,7 +70,6 @@ namespace VetClinicDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReceptionId = table.Column<int>(nullable: false),
                     ClientId = table.Column<int>(nullable: false),
-                    PetId = table.Column<int>(nullable: false),
                     DatePayment = table.Column<DateTime>(nullable: false),
                     Sum = table.Column<int>(nullable: false)
                 },
@@ -134,7 +87,7 @@ namespace VetClinicDatabaseImplement.Migrations
                         column: x => x.ReceptionId,
                         principalTable: "Receptions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,16 +118,6 @@ namespace VetClinicDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientPets_ClientId",
-                table: "ClientPets",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ClientPets_PetId",
-                table: "ClientPets",
-                column: "PetId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Payments_ClientId",
                 table: "Payments",
                 column: "ClientId");
@@ -203,16 +146,10 @@ namespace VetClinicDatabaseImplement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClientPets");
-
-            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "ReceptionServices");
-
-            migrationBuilder.DropTable(
-                name: "Pets");
 
             migrationBuilder.DropTable(
                 name: "Receptions");

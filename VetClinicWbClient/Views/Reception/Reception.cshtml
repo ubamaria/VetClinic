@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Запись на прием";
+}
+
+<div class="text-center text-info">
+    <h1>Запись на прием</h1>
+</div>
+<hr />
+<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="reception" asp-action="CreateReception">Записаться</a></strong></p>
+<hr />
+<hr />
+@foreach (var reception in ViewBag.receptions)
+{
+   <p><strong>Номер: @reception.Id </strong></p>
+    <p>Дата: @reception.DateCreate</p>
+    <p>Статус: @reception.ReceptionStatus</p>
+    <p>Цена: @reception.TotalSum</p>
+    <p>Услуги:</p>
+    <table class="table">
+        <tr>
+            <td>Наименование</td>
+            <td>Цена</td>
+            <td>Количество</td>
+        </tr>
+        @foreach (var service in reception.ReceptionServices)
+        {
+            <tr>
+                <td>@service.ServiceName</td>
+                <td>@service.Price</td>
+                <td>@service.Count</td>
+            </tr>
+        }
+    </table>
+    if (reception.ReceptionStatus != VetClinicBusinessLogic.Enums.ReceptionStatus.Оформлен && ViewBag.Payments != null)
+    {
+        <p>Платежи:</p>
+        <table class="table">
+            <tr>
+                <td>Дата</td>
+                <td>Сумма</td>
+            </tr>
+            @foreach (var payment in ViewBag.Payments)
+            {
+                if (payment.ReceptionId == reception.Id)
+                {
+                    <tr>
+                        <td>@payment.DatePayment</td>
+                        <td>@payment.Sum</td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+    <hr />
+    if (reception.ReceptionStatus == VetClinicBusinessLogic.Enums.ReceptionStatus.Оплачен)
+    {
+        <p>Полностью оплачено</p>
+        <hr />
+    }
+    else
+    {
+        if (reception.ReceptionStatus == VetClinicBusinessLogic.Enums.ReceptionStatus.ОплаченЧастично)
+        {
+            <p>К оплате: @reception.LeftSum</p>
+            <hr />
+
+        }
+        <p>
+            <a href="/Reception/Payment/@reception.Id">Оплатить</a>
+        </p>
+    }
+   
+    <hr />
+
+}

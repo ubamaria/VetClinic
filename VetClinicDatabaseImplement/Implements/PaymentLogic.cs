@@ -32,7 +32,7 @@ namespace VetClinicDatabaseImplement.Implements
                 }
                 element.ReceptionId = model.ReceptionId;
                 element.ClientId = model.ClientId;
-                element.PetId = model.PetId;
+                //element.PetId = model.PetId;
                 element.Sum = model.Sum;
                 element.DatePayment = model.DatePayment;
                 context.SaveChanges();
@@ -65,7 +65,7 @@ namespace VetClinicDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     ClientId = rec.ClientId,
-                    PetId = rec.PetId,
+                   // PetId = rec.PetId,
                     DatePayment = rec.DatePayment,
                     ReceptionId = rec.ReceptionId,
                     Sum = rec.Sum

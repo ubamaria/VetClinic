@@ -12,7 +12,7 @@ namespace VetClinicDatabaseImplement.Implements
 {
     public class ServiceLogic : IService
     {
-        private readonly string ServiceFileName = "F://data//Service.xml";
+        private readonly string ServiceFileName = "F://data//Список услуг.xml";
         public List<Service> Services { get; set; }
         public ServiceLogic()
         {

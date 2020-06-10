@@ -16,9 +16,9 @@ namespace VetClinicBusinessLogic.BindingModels
         [DataMember]
         public DateTime DateCreate { get; set; } 
         [DataMember]
-        public int PetId { get; set; }
+        public int TotalSum { get; set; }
         [DataMember]
-        public decimal TotalSum { get; set; }
+        public int LeftSum { get; set; }
         [DataMember]
         public DateTime? Date { get; set; }
         [DataMember]

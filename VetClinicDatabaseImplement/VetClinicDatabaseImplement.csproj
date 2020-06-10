@@ -7,6 +7,24 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200604112048_FirstMig.cs" />
     <Compile Remove="Migrations\20200604112048_FirstMig.Designer.cs" />
+    <Compile Remove="Migrations\20200604114525_FirstMig.cs" />
+    <Compile Remove="Migrations\20200604114525_FirstMig.Designer.cs" />
+    <Compile Remove="Migrations\20200604140610_SecondMig.cs" />
+    <Compile Remove="Migrations\20200604140610_SecondMig.Designer.cs" />
+    <Compile Remove="Migrations\20200604141104_Mig1.cs" />
+    <Compile Remove="Migrations\20200604141104_Mig1.Designer.cs" />
+    <Compile Remove="Migrations\20200604141642_Mig1.cs" />
+    <Compile Remove="Migrations\20200604141642_Mig1.Designer.cs" />
+    <Compile Remove="Migrations\20200604141947_Mig1.cs" />
+    <Compile Remove="Migrations\20200604141947_Mig1.Designer.cs" />
+    <Compile Remove="Migrations\20200604142120_Mig1.cs" />
+    <Compile Remove="Migrations\20200604142120_Mig1.Designer.cs" />
+    <Compile Remove="Migrations\20200604150747_Mig2.cs" />
+    <Compile Remove="Migrations\20200604150747_Mig2.Designer.cs" />
+    <Compile Remove="Migrations\20200604151142_Mig1.cs" />
+    <Compile Remove="Migrations\20200604151142_Mig1.Designer.cs" />
+    <Compile Remove="Migrations\20200604151658_Mig2.cs" />
+    <Compile Remove="Migrations\20200604151658_Mig2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

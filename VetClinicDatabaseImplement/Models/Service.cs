@@ -14,7 +14,5 @@ namespace VetClinicDatabaseImplement.Models
         public string ServiceName { get; set; }
         [Required]
         public int Price { get; set; }
-        [ForeignKey("ServiceId")]
-        public virtual List<ReceptionService> ReceptionServices { get; set; }
     }
 }

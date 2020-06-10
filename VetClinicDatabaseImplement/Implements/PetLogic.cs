@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,63 +16,139 @@ namespace VetClinicDatabaseImplement.Implements
         {
             using (var context = new VetClinicDatabase())
             {
-                Pet element = model.Id.HasValue ? null : new Pet();
-                if (model.Id.HasValue)
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    element = context.Pets.FirstOrDefault(rec => rec.Id == model.Id);
-                    if (element == null)
+                    try
                     {
-                        throw new Exception("Элемент не найден");
+                        Pet element = model.Id.HasValue ? null : new Pet();
+                        if (model.Id.HasValue)
+                        {
+                            element = context.Pets.FirstOrDefault(rec => rec.Id ==
+                           model.Id && rec.PetName == model.PetName);
+                            if (element == null)
+                            {
+                                throw new Exception("Такой питомец уже существует");
+                            }
+                            //element.PetName = model.PetName;
+                            //element.Kind = model.Kind;
+                            //element.Breed = model.Breed;
+                            //element.Age = model.Age;
+                            //element.Gender = model.Gender;
+                            //context.SaveChanges();
+                        }
+                        else
+                        {
+                            element.PetName = model.PetName;
+                            element.Kind = model.Kind;
+                            element.Breed = model.Breed;
+                            element.Age = model.Age;
+                            element.Gender = model.Gender;
+                        }
+                        context.Pets.Add(element);
+                        context.SaveChanges();
+
+                        var groupClients = model.ClientPets
+                           .GroupBy(rec => rec.ClientId)
+                           .Select(rec => new
+                           {
+                               ClientId = rec.Key,
+                               Count = rec.Sum(r => r.Count)
+                           });
+
+                        foreach (var groupClient in groupClients)
+                        {
+                            context.ClientPets.Add(new ClientPet
+                            {
+                                PetId = element.Id,
+                                ClientId = groupClient.ClientId,
+                                Count = groupClient.Count
+                            });
+                            context.SaveChanges();
+                        }
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
                     }
                 }
-                else
-                {
-                    element = new Pet();
-                    context.Pets.Add(element);
-                }
-                element.PetName = model.PetName;
-                element.Kind = model.Kind;
-                element.Breed = model.Breed;
-                element.Age = model.Age;
-                element.Gender = model.Gender;
-                context.SaveChanges();
             }
         }
         public void Delete(PetBindingModel model)
         {
             using (var context = new VetClinicDatabase())
             {
-                Pet element = context.Pets.FirstOrDefault(rec => rec.Id == model.Id);
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        Pet element = context.Pets.FirstOrDefault(rec => rec.Id == model.Id.Value);
 
-                if (element != null)
-                {
-                    context.Pets.Remove(element);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    throw new Exception("Элемент не найден");
+                        if (element != null)
+                        {
+                            context.ClientPets.RemoveRange(
+                                    context.ClientPets.Where(
+                                        rec => rec.PetId == model.Id.Value));
+                            context.Pets.Remove(element);
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            throw new Exception("Элемент не найден");
+                        }
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
-        public List<PetViewModel> Read(PetBindingModel model)
-        {
-            using (var context = new VetClinicDatabase())
+            public List<PetViewModel> Read(PetBindingModel model)
             {
-                return context.Pets
-                 .Where(rec => model == null
-                 || (rec.Id == model.Id && model.Id.HasValue))
-            .Select(rec => new PetViewModel
+                using (var context = new VetClinicDatabase())
+                {
+                    return context.Pets
+                     .Where(rec => model == null
+                     || rec.Id == model.Id || rec.PetName == model.PetName)
+                .Select(rec => new PetViewModel
+                {
+                    Id = rec.Id,
+                    Kind = rec.Kind,
+                    PetName = rec.PetName,
+                    Breed = rec.Breed,
+                    Age = rec.Age,
+                    Gender = rec.Gender,
+                    ClientPets = GetClientPetViewModel(rec)
+                })
+                    .ToList();
+                }
+            }
+            public static List<ClientPetViewModel> GetClientPetViewModel(Pet pet)
             {
-                Id = rec.Id,
-                Kind = rec.Kind,
-                PetName = rec.PetName,
-                Breed = rec.Breed,
-                Age = rec.Age,
-                Gender = rec.Gender,
-            })
-                .ToList();
+                using (var context = new VetClinicDatabase())
+                {
+                    var ClientPets = context.ClientPets
+                        .Where(rec => rec.PetId == pet.Id)
+                        .Include(rec => rec.Client)
+                        .Select(rec => new ClientPetViewModel
+                        {
+                            Id = rec.Id,
+                            PetId = rec.PetId,
+                            ClientId = rec.ClientId,
+                            Count = rec.Count
+                        }).ToList();
+                    foreach (var client in ClientPets)
+                    {
+                        var clientData = context.Clients.Where(rec => rec.Id == client.ClientId).FirstOrDefault();
+                        client.ClientFIO = clientData.ClientFIO;
+
+                    }
+                    return ClientPets;
+                }
             }
         }
     }
-}

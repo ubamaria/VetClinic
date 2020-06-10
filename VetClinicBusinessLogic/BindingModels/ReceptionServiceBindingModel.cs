@@ -13,9 +13,11 @@ namespace VetClinicBusinessLogic.BindingModels
         [DataMember]
         public int ServiceId { get; set; }
         [DataMember]
+        public string ServiceName { get; set; }
+        [DataMember]
         public int ReceptionId { get; set; }
         [DataMember]
-        public int PetId { get; set; }
+        public int Price { get; set; }
         [DataMember]
         public int Count { get; set; }
     }

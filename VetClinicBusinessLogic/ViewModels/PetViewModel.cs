@@ -26,5 +26,7 @@ namespace VetClinicBusinessLogic.ViewModels
         [DisplayName("Пол")]
         [DataMember]
         public string Gender { get; set; } //пол
+        [DataMember]
+        public List<ClientPetViewModel> ClientPets { get; set; }
     }
 }

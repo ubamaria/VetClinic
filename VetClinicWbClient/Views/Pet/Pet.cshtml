@@ -1,0 +1,26 @@
+﻿@model VetClinicWbClient.Models.PetModel
+@{
+    ViewData["Title"] = "Мой питомец";
+}
+
+<div class="text-center text-info">
+    <h1>@ViewData["Title"]</h1>
+</div>
+@using (Html.BeginForm("Pet", "Pet"))
+{
+    <p>
+        Имя:<br>
+        @Html.TextBoxFor(x => x.PetName)<br>
+        Вид: <br>
+        @Html.TextBoxFor(x => x.Kind)<br>
+        Порода:<br>
+        @Html.TextBoxFor(x => x.Breed)<br>
+        Возраст:<br>
+        @Html.TextBoxFor(x => x.Age)<br>
+        Пол:<br>
+        @Html.TextBoxFor(x => x.Gender)
+    </p>
+    @Html.ValidationSummary(true, "", new { @style = "color: red" })
+    <input type="submit" value="Добавить" class="btn btn-info btn-sm" />
+}
+

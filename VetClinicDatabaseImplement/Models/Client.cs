@@ -13,8 +13,6 @@ namespace VetClinicDatabaseImplement.Models
         [Required]
         public string ClientFIO { get; set; }
         [Required]
-        public string PetName { get; set; }
-        [Required]
         public string Login { get; set; }
         [Required]
         public string Email { get; set; }
@@ -28,7 +26,5 @@ namespace VetClinicDatabaseImplement.Models
         public virtual List<Reception> Receptions { get; set; }
         [ForeignKey("ClientId")]
         public virtual List<Payment> Payments { get; set; }
-        [ForeignKey("ClientId")]
-        public virtual List<ClientPet> ClientPets { get; set; }
     }
 }

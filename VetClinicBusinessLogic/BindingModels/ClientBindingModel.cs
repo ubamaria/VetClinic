@@ -22,6 +22,6 @@ namespace VetClinicBusinessLogic.BindingModels
         public bool Block { get; set; }
         [DataMember]
         public string Phone { get; set; }
-        public virtual List<ClientPetBindingModel> ClientPets { get; set; }
+        public List<ClientPetBindingModel> ClientPets { get; set; }
     }
 }

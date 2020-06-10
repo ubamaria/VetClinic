@@ -13,7 +13,7 @@ namespace VetClinicDatabaseImplement
             if (optionsBuilder.IsConfigured == false)
             {
                 optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-BUNOAQN\SQLEXPRESS;
-                                            Initial Catalog=FoodOrderDatabase;
+                                            Initial Catalog=VetClinicDatabase;
                                             Integrated Security=True;
                                             MultipleActiveResultSets=True;");
             }

@@ -11,7 +11,6 @@ namespace VetClinicDatabaseImplement.Models
         public int Id { get; set; }
         public int ServiceId { get; set; }
         public int ReceptionId { get; set; }
-        [Required]
         public int Count { get; set; }
         public virtual Service Service { get; set; }
         public virtual Reception Reception { get; set; }

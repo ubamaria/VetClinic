@@ -16,16 +16,11 @@ namespace VetClinicBusinessLogic.ViewModels
         [DataMember]
         public int ClientId { get; set; }
         [DataMember]
-        public int PetId { get; set; }
-        [DataMember]
         [DisplayName("ФИО Клиента")]
         public string ClientFIO { get; set; }
         [DataMember]
-        [DisplayName("Имя питомца")]
-        public string PetName { get; set; }
-        [DataMember]
         [DisplayName("Сумма")]
-        public decimal TotalSum { get; set; }
+        public int TotalSum { get; set; }
         [DataMember]
         [DisplayName("Статус приема")]
         public ReceptionStatus ReceptionStatus { get; set; }
@@ -33,6 +28,9 @@ namespace VetClinicBusinessLogic.ViewModels
 
         [DisplayName("Дата создания записи на прием")]
         public DateTime DateCreate { get; set; }
+        [DataMember]
+        [DisplayName("Оплачено")]
+        public int LeftSum { get; set; }
 
         [DataMember]
         public virtual List<ReceptionServiceViewModel> ReceptionServices { get; set; }

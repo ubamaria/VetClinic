@@ -30,7 +30,6 @@ namespace VetClinicDatabaseImplement.Implements
                                 throw new Exception("Элемент не найден");
                             }
                             element.ClientId = model.ClientId;
-                            element.PetId = model.PetId;
                             element.DateCreate = model.DateCreate;
                             element.TotalSum = model.TotalSum;
                             element.ReceptionStatus = model.ReceptionStatus;
@@ -39,7 +38,6 @@ namespace VetClinicDatabaseImplement.Implements
                         else
                         {
                             element.ClientId = model.ClientId;
-                            element.PetId = model.PetId;
                             element.DateCreate = model.DateCreate;
                             element.TotalSum = model.TotalSum;
                             element.ReceptionStatus = model.ReceptionStatus;
@@ -106,8 +104,6 @@ namespace VetClinicDatabaseImplement.Implements
                     Id = rec.Id,
                     ClientId = rec.ClientId,
                     ClientFIO = rec.Client.ClientFIO,
-                    PetId = rec.PetId,
-                    PetName = rec.Client.PetName,
                     TotalSum = rec.TotalSum,
                     DateCreate = rec.DateCreate,
                    
