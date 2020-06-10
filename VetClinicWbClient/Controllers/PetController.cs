@@ -45,7 +45,8 @@ namespace VetClinicWbClient.Controllers
                     Gender = pet.Gender
                 });
                 ModelState.AddModelError("", "Вы успешно добавили питомца");
-                return View(pet);
+            var pets = _pet.Read(null);
+            return View(pet);
         }
     }
 }

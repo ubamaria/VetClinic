@@ -14,6 +14,7 @@ namespace VetClinicWbClient.Models
         public string ClientFIO { get; set; }
         public string PetName { get; set; }
         public decimal TotalSum { get; set; }
+        public int LeftSum { get; set; }
         public ReceptionStatus ReceptionStatus { get; set; }
         public DateTime DateCreate { get; set; }
         public virtual List<ReceptionServiceModel> ReceptionServices { get; set; }

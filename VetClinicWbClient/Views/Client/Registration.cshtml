@@ -1,12 +1,10 @@
 ﻿@model VetClinicWbClient.Models.RegistrationModel
 
 @{
-    ViewData["Title"] = "Registration";
+    ViewData["Title"] = "Регистрация";
 }
-<div class="text-left text-info">
     <h1>@ViewData["Title"]</h1>
-</div>
-@using (Html.BeginForm("Registration", "Client"))
+@using (Html.BeginForm())
 {
     <p>
         Логин:<br>
@@ -20,8 +18,9 @@
         ФИО:<br>
         @Html.TextBoxFor(x => x.ClientFIO)
     </p>
+   
     @Html.ValidationSummary(true, "", new { @style = "color: green" })
-    <input type="submit" value="Зарегистрироваться" class="btn btn-info btn-sm" />
+    <input type="submit" value="Зарегистрироваться" />
 }
 
 

@@ -1,4 +1,4 @@
-﻿
+﻿@model ReportModel
 @{
     ViewData["Title"] = "Запись на прием";
 }
@@ -9,10 +9,28 @@
 <hr />
 <p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="reception" asp-action="CreateReception">Записаться</a></strong></p>
 <hr />
+@using (Html.BeginForm())
+{
+    <p>
+        Выберите даты для отображения отчета по записям и оплатам
+    </p>
+    <p>
+        От: @Html.EditorFor(model => model.From)
+    </p>
+    <p>
+        До: @Html.EditorFor(model => model.To)
+    </p>
+    <p>
+        @Html.EditorFor(model => model.SendMail) Отправить отчёт по записям и оплатам на почту
+    </p>
+    <p>
+        <button type="submit" class="btn btn-info btn-sm">Получить</button>
+    </p>
+}
 <hr />
 @foreach (var reception in ViewBag.receptions)
 {
-   <p><strong>Номер: @reception.Id </strong></p>
+    <p><strong>Номер: @reception.Id </strong></p>
     <p>Дата: @reception.DateCreate</p>
     <p>Статус: @reception.ReceptionStatus</p>
     <p>Цена: @reception.TotalSum</p>
@@ -70,7 +88,12 @@
             <a href="/Reception/Payment/@reception.Id">Оплатить</a>
         </p>
     }
-   
+    @*<p>
+        <a href="/Reception/SendWordReport/@travel.Id">Отправить список туров в формате .docx</a>
+    </p>*@
+    <p>
+        <a href="/Reception/SendExcelReport/@reception.Id">Отправить список услуг в формате .xslx</a>
+    </p>
     <hr />
 
 }

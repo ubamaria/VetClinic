@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VetClinicBusinessLogic.BindingModels;
+using VetClinicBusinessLogic.BusinessLogic;
 using VetClinicBusinessLogic.Enums;
 using VetClinicBusinessLogic.Interfaces;
 using VetClinicBusinessLogic.ViewModels;
@@ -17,11 +18,13 @@ namespace VetClinicWbClient.Controllers
         private readonly IReception _reception;
         private readonly IService _service;
         private readonly IPayment _payment;
-        public ReceptionController(IReception reception, IService service, IPayment payment)
+        private readonly ReportLogic _report;
+        public ReceptionController(IReception reception, IService service, IPayment payment, ReportLogic report)
         {
             _reception = reception;
             _service = service;
             _payment = payment;
+            _report = report;
         }
         public IActionResult Reception()
         {
@@ -160,5 +163,47 @@ namespace VetClinicWbClient.Controllers
             });
             return RedirectToAction("Reception");
         }
+        [HttpPost]
+        public IActionResult Reception(ReportModel model)
+        {
+            var paymentList = new List<PaymentViewModel>();
+            var receptions = new List<ReceptionViewModel>();
+            receptions = _reception.Read(new ReceptionBindingModel
+            {
+                ClientId = Program.Client.Id,
+                Date = model.From,
+                DateTo = model.To
+            });
+            var payments = _payment.Read(null);
+            foreach (var reception in receptions)
+            {
+                foreach (var payment in payments)
+                {
+                    if (payment.ClientId == Program.Client.Id && payment.ReceptionId == reception.Id)
+                        paymentList.Add(payment);
+                }
+            }
+            ViewBag.Payments = paymentList;
+            ViewBag.Receptions = receptions;
+            string fileName = "F:\\data\\pdfreport.pdf";
+            if (model.SendMail)
+            {
+                _report.SaveReceptionPaymentsToPdfFile(fileName, new ReceptionBindingModel
+                {
+                    ClientId = Program.Client.Id,
+                    Date = model.From,
+                    DateTo = model.To
+                }, Program.Client.Email);
+            }
+            return View();
+        }
+        public IActionResult SendExcelReport(int id)
+        {
+            var reception = _reception.Read(new ReceptionBindingModel { Id = id }).FirstOrDefault();
+            string fileName = "F:\\data\\" + reception.Id + ".xlsx";
+            _report.SaveReceptionServicesToExcelFile(fileName, reception, Program.Client.Email);
+            return RedirectToAction("Reception");
+        }
+
     }
 }

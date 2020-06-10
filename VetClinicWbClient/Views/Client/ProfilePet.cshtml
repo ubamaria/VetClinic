@@ -1,4 +1,4 @@
-﻿
+﻿@model VetClinicWbClient.Models.PetModel
 @{
     ViewData["Title"] = "Профиль питомца";
 }
@@ -6,14 +6,28 @@
 <div class="text-center text-info">
     <h1>@ViewData["Title"]</h1>
 </div>
-
-<p>
-    Имя: @ViewBag.Pet.PetName<br>
-    Вид: @ViewBag.Pet.Kind<br>
-    Порода: @ViewBag.Pet.Breed<br>
-    Возраст: @ViewBag.Pet.Age<br>
-    Пол: @ViewBag.Pet.Gender
-</p>
+<table class="table">
+    <tr>
+        <td>Имя</td>
+        <td>Возраст</td>
+        <td>Вид</td>
+        <td>Порода</td>
+        <td>Пол</td>
+    </tr>
+    @foreach (var pet in ViewBag.pets)
+    {
+        if (pet.PetId == pet.Id)
+        {
+<tr>
+    <td>@pet.PetName</td>
+    <td>@pet.Age</td>
+    <td>@pet.Kind</td>
+    <td>@pet.Breed</td>
+    <td>@pet.Gender</td>
+</tr>
+        }
+    }
+</table>
 
 
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VetClinicBusinessLogic.BusinessLogic;
 using VetClinicBusinessLogic.Interfaces;
 using VetClinicDatabaseImplement.Implements;
 
@@ -31,6 +32,7 @@ namespace VetClinicWbClient
             services.AddTransient<IReception, ReceptionLogic>();
             services.AddTransient<IService, ServiceLogic>();
             services.AddTransient<IPet, PetLogic>();
+            services.AddTransient<ReportLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
