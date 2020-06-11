@@ -96,12 +96,13 @@ namespace VetClinicDatabaseImplement.Implements
             using (var context = new VetClinicDatabase())
             {
                 return context.Pets
-                 .Where(rec => rec.Id == model.Id || (rec.ClientId == model.ClientId) 
-                 && (rec.PetName == model.PetName))
+                 .Where(rec => model == null
+                   || rec.Id == model.Id
+                 || (rec.ClientId == model.ClientId))
             .Select(rec => new PetViewModel
             {
                 Id = rec.Id,
-                ClientId = rec.ClientId,
+               ClientId =rec.ClientId,
                 Kind = rec.Kind,
                 PetName = rec.PetName,
                 Breed = rec.Breed,

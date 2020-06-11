@@ -13,7 +13,6 @@ namespace VetClinicWbClient
     public class Program
     {
         public static ClientViewModel Client;
-        public static PetViewModel Pet;
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
