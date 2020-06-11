@@ -59,17 +59,17 @@ namespace VetClinicBusinessLogic.BusinessLogic
             });
             SendMail(email, fileName, title);
         }
-        //public void SaveReceptionServicesToWordFile(string fileName, ReceptionViewModel reception, string email)
-        //{
-        //    string title = "Список услуг по записи №" + reception.Id;
-        //    SaveToWord.CreateDoc(new WordInfo
-        //    {
-        //        FileName = fileName,
-        //        Title = title,
-        //        Services = GetReceptionServices(reception)
-        //    });
-        //    SendMail(email, fileName, title);
-        //}
+        public void SaveReceptionServicesToWordFile(string fileName, ReceptionViewModel reception, string email)
+        {
+            string title = "Список услуг по записи №" + reception.Id;
+            SaveToWord.CreateDoc(new WordInfo
+            {
+                FileName = fileName,
+                Title = title,
+                Services = GetReceptionServices(reception)
+            });
+            SendMail(email, fileName, title);
+        }
         public void SaveReceptionServicesToExcelFile(string fileName, ReceptionViewModel reception, string email)
         {
             string title = "Список услуг по записи №" + reception.Id;
