@@ -206,5 +206,12 @@ namespace VetClinicWbClient.Controllers
             _report.SaveReceptionServicesToExcelFile(fileName, reception, Program.Client.Email);
             return RedirectToAction("Reception");
         }
+        public IActionResult SendWordReport(int id)
+        {
+            var reception = _reception.Read(new ReceptionBindingModel { Id = id }).FirstOrDefault();
+            string fileName = "F:\\data\\" + reception.Id + ".docx";
+            _report.SaveReceptionServicesToWordFile(fileName, reception, Program.Client.Email);
+            return RedirectToAction("Reception");
+        }
     }
 }
