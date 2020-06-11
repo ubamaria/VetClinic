@@ -15,7 +15,7 @@
     <p>Дата: @reception.DateCreate</p>
     <p>Статус: @reception.ReceptionStatus</p>
     <p>Цена: @reception.TotalSum</p>
-    <p>Услуги:</p>
+    <p><strong>Услуги:</strong></p>
     <table class="table">
         <tr>
             <td>Наименование</td>
@@ -80,8 +80,8 @@
 @using (Html.BeginForm())
 {
     <p>
-        Выберите даты для отображения отчета по приемам и платежам:
-    </p>
+        <strong> Выберите даты для отображения отчета по приемам и платежам:</strong>
+</p>
     <p>
         От: @Html.EditorFor(model => model.From)
     </p>
@@ -89,10 +89,10 @@
         До: @Html.EditorFor(model => model.To)
     </p>
     <p>
-        @Html.EditorFor(model => model.SendMail) Отправить по приемам и платежам: на почту
+        @Html.EditorFor(model => model.SendMail) на почту
     </p>
     <p>
-            <button type="submit">Получить</button>
-        </p>
-}
-<hr />
+        <button type="submit">Отправить</button>
+    </p>
+    }
+    <hr />

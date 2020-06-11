@@ -3,7 +3,7 @@
     ViewData["Title"] = "Мой питомец";
 }
 
-    <h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
 
 @using (Html.BeginForm("Pet", "Pet"))
 {
@@ -19,7 +19,7 @@
         Пол:<br>
         @Html.TextBoxFor(x => x.Gender)
     </p>
+    <input type="submit" value="Добавить" />
     @Html.ValidationSummary()
-    <input type="submit" value="Добавить"/>
 }
 

@@ -14,7 +14,7 @@ namespace VetClinicWbClient.Models
 
         [Required(ErrorMessage = "Пожалуйста, введите пароль")]
         [DataType(DataType.Password)]
-        [StringLength(20, ErrorMessage = "Поле {0} должно иметь минимум {2} и максимум {1} символов.", MinimumLength = 6)]
+        [StringLength(15, ErrorMessage = "Поле {0} должно иметь минимум {2} и максимум {1} символов.", MinimumLength = 5)]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите E-Mail")]

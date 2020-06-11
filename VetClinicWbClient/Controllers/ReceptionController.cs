@@ -57,7 +57,7 @@ namespace VetClinicWbClient.Controllers
             }
             ViewBag.Payments = paymentList;
             ViewBag.Receptions = receptions;
-            string fileName = "D:\\data\\pdfreport.pdf";
+            string fileName = "F:\\data\\pdfreport.pdf";
             if (model.SendMail)
             {
                 _report.SaveReceptionPaymentsToPdfFile(fileName, new ReceptionBindingModel
