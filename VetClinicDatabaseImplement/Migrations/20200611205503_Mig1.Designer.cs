@@ -10,7 +10,7 @@ using VetClinicDatabaseImplement;
 namespace VetClinicDatabaseImplement.Migrations
 {
     [DbContext(typeof(VetClinicDatabase))]
-    [Migration("20200611145335_Mig1")]
+    [Migration("20200611205503_Mig1")]
     partial class Mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

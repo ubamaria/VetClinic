@@ -33,6 +33,8 @@ namespace VetClinicWbClient
             services.AddTransient<IService, ServiceLogic>();
             services.AddTransient<IPet, PetLogic>();
             services.AddTransient<ReportLogic>();
+            services.AddTransient<BackUpAbstractLogic, BackUpLogic>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
