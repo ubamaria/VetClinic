@@ -101,8 +101,8 @@ namespace VetClinicDatabaseImplement.Implements
             .Select(rec => new PetViewModel
             {
                 Id = rec.Id,
-                    //ClientId = rec.ClientId,
-                    Kind = rec.Kind,
+              //ClientId = rec.ClientId,
+                Kind = rec.Kind,
                 PetName = rec.PetName,
                 Breed = rec.Breed,
                 Age = rec.Age,
