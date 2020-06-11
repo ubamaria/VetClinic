@@ -96,12 +96,12 @@ namespace VetClinicDatabaseImplement.Implements
             using (var context = new VetClinicDatabase())
             {
                 return context.Pets
-                 .Where(rec => model == null
-                 || rec.Id == model.Id || rec.PetName == model.PetName)
+                 .Where(rec => rec.Id == model.Id || (rec.ClientId == model.ClientId) 
+                 && (rec.PetName == model.PetName))
             .Select(rec => new PetViewModel
             {
                 Id = rec.Id,
-              //ClientId = rec.ClientId,
+                ClientId = rec.ClientId,
                 Kind = rec.Kind,
                 PetName = rec.PetName,
                 Breed = rec.Breed,
@@ -133,37 +133,6 @@ namespace VetClinicDatabaseImplement.Implements
 
                 }
                 return ClientPets;
-            }
-        }
-        public List<PetViewModel> GetList()
-        {
-            using (var context = new VetClinicDatabase())
-            {
-                return context.Pets
-                .ToList()
-               .Select(rec => new PetViewModel
-               {
-                   Id = rec.Id,
-                   ClientId = rec.ClientId,
-                   PetName = rec.PetName,
-                   Kind = rec.Kind,
-                   Breed = rec.Breed,
-                   Gender = rec.Gender,
-                   Age = rec.Age,
-                   ClientPets = context.ClientPets
-                .Include(recCP => recCP.Client)
-               .Where(recCP => recCP.PetId == rec.Id).
-               Select(x => new ClientPetViewModel
-               {
-                   Id = x.Id,
-                   PetId = x.PetId,
-                   ClientId = x.ClientId,
-                   ClientFIO = context.Clients.FirstOrDefault(y => y.Id == x.ClientId).ClientFIO,
-                   Count = x.Count
-               })
-               .ToList()
-               })
-            .ToList();
             }
         }
     }

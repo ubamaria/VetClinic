@@ -10,8 +10,8 @@ using VetClinicDatabaseImplement;
 namespace VetClinicDatabaseImplement.Migrations
 {
     [DbContext(typeof(VetClinicDatabase))]
-    [Migration("20200608121702_Mig2")]
-    partial class Mig2
+    [Migration("20200611145335_Mig1")]
+    partial class Mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,6 +56,34 @@ namespace VetClinicDatabaseImplement.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("VetClinicDatabaseImplement.Models.ClientPet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("PetId");
+
+                    b.ToTable("ClientPets");
+                });
+
             modelBuilder.Entity("VetClinicDatabaseImplement.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -82,6 +110,40 @@ namespace VetClinicDatabaseImplement.Migrations
                     b.HasIndex("ReceptionId");
 
                     b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("VetClinicDatabaseImplement.Models.Pet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Breed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pets");
                 });
 
             modelBuilder.Entity("VetClinicDatabaseImplement.Models.Reception", b =>
@@ -152,6 +214,21 @@ namespace VetClinicDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("VetClinicDatabaseImplement.Models.ClientPet", b =>
+                {
+                    b.HasOne("VetClinicDatabaseImplement.Models.Client", "Client")
+                        .WithMany("ClientPets")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VetClinicDatabaseImplement.Models.Pet", "Pet")
+                        .WithMany()
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VetClinicDatabaseImplement.Models.Payment", b =>

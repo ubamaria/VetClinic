@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VetClinicDatabaseImplement.Migrations
 {
-    public partial class Mig : Migration
+    public partial class Mig1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,6 @@ namespace VetClinicDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClientFIO = table.Column<string>(nullable: false),
-                    PetName = table.Column<string>(nullable: false),
                     Login = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
@@ -24,6 +23,24 @@ namespace VetClinicDatabaseImplement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PetName = table.Column<string>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false),
+                    Kind = table.Column<string>(nullable: false),
+                    Breed = table.Column<string>(nullable: false),
+                    Age = table.Column<int>(nullable: false),
+                    Gender = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,6 +75,34 @@ namespace VetClinicDatabaseImplement.Migrations
                         name: "FK_Receptions_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientPets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientId = table.Column<int>(nullable: false),
+                    PetId = table.Column<int>(nullable: false),
+                    ClientFIO = table.Column<string>(nullable: true),
+                    Count = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientPets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClientPets_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClientPets_Pets_PetId",
+                        column: x => x.PetId,
+                        principalTable: "Pets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -118,6 +163,16 @@ namespace VetClinicDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClientPets_ClientId",
+                table: "ClientPets",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientPets_PetId",
+                table: "ClientPets",
+                column: "PetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_ClientId",
                 table: "Payments",
                 column: "ClientId");
@@ -146,10 +201,16 @@ namespace VetClinicDatabaseImplement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ClientPets");
+
+            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "ReceptionServices");
+
+            migrationBuilder.DropTable(
+                name: "Pets");
 
             migrationBuilder.DropTable(
                 name: "Receptions");
