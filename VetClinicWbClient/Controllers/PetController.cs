@@ -13,6 +13,7 @@ namespace VetClinicWbClient.Controllers
     {
         private readonly IPet _pet;
         private readonly IClient _client;
+        public IPet Service = Globals.Pet;
         public PetController(IPet pet, IClient client)
         {
             _client = client;
@@ -24,8 +25,10 @@ namespace VetClinicWbClient.Controllers
         }
         public ActionResult ProfilePet()
         {
-            ViewBag.Pet = Program.Pet;
+            ViewBag.Pets = _pet.GetList();
             return View();
+            // ViewBag.Pet = Program.Pet;
+          //  return View();
         }
         [HttpPost]
         public ViewResult Pet(PetModel pet)

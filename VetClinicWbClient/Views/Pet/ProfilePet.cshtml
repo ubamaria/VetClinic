@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Мои питомцы";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<p> <strong> <a asp-area="" asp-controller="Pet" asp-action="Pet">Добавить</a></strong></p>
+
+<table class="table">
+    <tr>
+        <td>Имя</td>
+        <td>Возраст</td>
+        <td>Вид</td>
+        <td>Порода</td>
+        <td>Пол</td>
+    </tr>
+    @foreach (var pet in ViewBag.pets)
+    {
+        <tr>
+            <td>@pet.PetName</td>
+            <td>@pet.Age</td>
+            <td>@pet.Kind</td>
+            <td>@pet.Breed</td>
+            <td>@pet.Gender</td>
+        </tr>
+    }
+</table>
+
+
+
+
+
+

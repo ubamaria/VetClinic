@@ -11,5 +11,6 @@ namespace VetClinicBusinessLogic.Interfaces
         List<PetViewModel> Read(PetBindingModel model);
         void CreateOrUpdate(PetBindingModel model);
         void Delete(PetBindingModel model);
+        List<PetViewModel> GetList();
     }
 }

@@ -25,7 +25,7 @@ namespace VetClinicWbClient.Controllers
         }
         public ActionResult ProfilePet()
         {
-            ViewBag.Pet = Program.Pet;
+            ViewBag.Client = Program.Client;
             return View();
         }
         public IActionResult Login()
