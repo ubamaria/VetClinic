@@ -23,8 +23,8 @@ namespace VetClinicDatabaseImplement.Implements
                         Pet element = model.Id.HasValue ? null : new Pet();
                         if (model.Id.HasValue)
                         {
-                            element = context.Pets.FirstOrDefault(rec => rec.Id ==
-                           model.Id && rec.PetName == model.PetName);
+                            element = context.Pets.FirstOrDefault(rec => rec.ClientId ==
+                           model.ClientId && rec.PetName == model.PetName);
                             if (element == null)
                             {
                                 throw new Exception("Такой питомец уже существует");
@@ -144,6 +144,7 @@ namespace VetClinicDatabaseImplement.Implements
                .Select(rec => new PetViewModel
                {
                    Id = rec.Id,
+                   ClientId = rec.ClientId,
                    PetName = rec.PetName,
                    Kind = rec.Kind,
                    Breed = rec.Breed,

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VetClinicBusinessLogic.BindingModels;
 using VetClinicBusinessLogic.Interfaces;
+using VetClinicDatabaseImplement;
 using VetClinicWbClient.Models;
 
 namespace VetClinicWbClient.Controllers
@@ -27,17 +28,15 @@ namespace VetClinicWbClient.Controllers
         {
             ViewBag.Pets = _pet.GetList();
             return View();
-            // ViewBag.Pet = Program.Pet;
-          //  return View();
         }
         [HttpPost]
-        public ViewResult Pet(PetModel pet)
+        public ActionResult Pet(PetModel pet)
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.ClientPets = _pet.Read(null);
-                return View(pet);
-            }
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.ClientPets = _pet.Read(null);
+                    return View(pet);
+                }
             _pet.CreateOrUpdate(new PetBindingModel
                 {
                     ClientId = Program.Client.Id,
@@ -48,8 +47,10 @@ namespace VetClinicWbClient.Controllers
                     Gender = pet.Gender
                 });
                 ModelState.AddModelError("", "Вы успешно добавили питомца");
-            var pets = _pet.Read(null);
-            return View(pet);
-        }
+                return RedirectToAction("ProfilePet");
+            }
     }
 }
+
+
+
