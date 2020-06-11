@@ -26,12 +26,47 @@ namespace VetClinicWbClient.Controllers
             _payment = payment;
             _report = report;
         }
+
         public IActionResult Reception()
         {
             ViewBag.Receptions = _reception.Read(new ReceptionBindingModel
             {
                 ClientId = Program.Client.Id
             });
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Reception(ReportModel model)
+        {
+            var paymentList = new List<PaymentViewModel>();
+            var receptions = new List<ReceptionViewModel>();
+            receptions = _reception.Read(new ReceptionBindingModel
+            {
+                ClientId = Program.Client.Id,
+                Date = model.From,
+                DateTo = model.To
+            });
+            var payments = _payment.Read(null);
+            foreach (var reception in receptions)
+            {
+                foreach (var payment in payments)
+                {
+                    if (payment.ClientId == Program.Client.Id && payment.ReceptionId == reception.Id)
+                        paymentList.Add(payment);
+                }
+            }
+            ViewBag.Payments = paymentList;
+            ViewBag.Receptions = receptions;
+            string fileName = "D:\\data\\pdfreport.pdf";
+            if (model.SendMail)
+            {
+                _report.SaveReceptionPaymentsToPdfFile(fileName, new ReceptionBindingModel
+                {
+                    ClientId = Program.Client.Id,
+                    Date = model.From,
+                    DateTo = model.To
+                }, Program.Client.Email);
+            }
             return View();
         }
         public IActionResult CreateReception()
@@ -51,7 +86,7 @@ namespace VetClinicWbClient.Controllers
             if (model.ReceptionServices == null)
             {
                 ViewBag.ReceptionServices = _service.Read(null);
-                ModelState.AddModelError("", "Ни одна услуга не выбрана");
+                ModelState.AddModelError("", "Услуга не выбрана");
                 return View(model);
             }
             var receptionServices = new List<ReceptionServiceBindingModel>();
@@ -70,7 +105,7 @@ namespace VetClinicWbClient.Controllers
             if (receptionServices.Count == 0)
             {
                 ViewBag.Products = _service.Read(null);
-                ModelState.AddModelError("", "Ни одна услуга не выбрана");
+                ModelState.AddModelError("", "Услуга не выбрана");
                 return View(model);
             }
             _reception.CreateOrUpdate(new ReceptionBindingModel
@@ -86,6 +121,7 @@ namespace VetClinicWbClient.Controllers
         private int CalculateSum(List<ReceptionServiceBindingModel> receptionServices)
         {
             int sum = 0;
+
             foreach (var service in receptionServices)
             {
                 var serviceData = _service.Read(new ServiceBindingModel { Id = service.ServiceId }).FirstOrDefault();
@@ -98,24 +134,14 @@ namespace VetClinicWbClient.Controllers
             }
             return sum;
         }
-        private int CalculateLeftSum(ReceptionViewModel reception)
-        {
-            int sum = reception.TotalSum;
-            int paidSum = _payment.Read(new PaymentBindingModel
-            {
-                ReceptionId = reception.Id
-            }).Select(rec => rec.Sum).Sum();
-
-            return sum - paidSum;
-        }
         public IActionResult Payment(int id)
         {
             var reception = _reception.Read(new ReceptionBindingModel
             {
                 Id = id
             }).FirstOrDefault();
-            ViewBag.Reception = reception;
             ViewBag.LeftSum = CalculateLeftSum(reception);
+            ViewBag.Reception = reception;
             return View();
         }
         [HttpPost]
@@ -128,7 +154,7 @@ namespace VetClinicWbClient.Controllers
             int leftSum = CalculateLeftSum(reception);
             if (!ModelState.IsValid)
             {
-                ViewBag.Travel = reception;
+                ViewBag.Reception = reception;
                 ViewBag.LeftSum = leftSum;
                 return View(model);
             }
@@ -163,39 +189,15 @@ namespace VetClinicWbClient.Controllers
             });
             return RedirectToAction("Reception");
         }
-        [HttpPost]
-        public IActionResult Reception(ReportModel model)
-        {
-            var paymentList = new List<PaymentViewModel>();
-            var receptions = new List<ReceptionViewModel>();
-            receptions = _reception.Read(new ReceptionBindingModel
+
+        private int CalculateLeftSum(ReceptionViewModel reception)
+        {       
+            int sum = reception.TotalSum;
+            int paidSum = _payment.Read(new PaymentBindingModel
             {
-                ClientId = Program.Client.Id,
-                Date = model.From,
-                DateTo = model.To
-            });
-            var payments = _payment.Read(null);
-            foreach (var reception in receptions)
-            {
-                foreach (var payment in payments)
-                {
-                    if (payment.ClientId == Program.Client.Id && payment.ReceptionId == reception.Id)
-                        paymentList.Add(payment);
-                }
-            }
-            ViewBag.Payments = paymentList;
-            ViewBag.Receptions = receptions;
-            string fileName = "F:\\data\\pdfreport.pdf";
-            if (model.SendMail)
-            {
-                _report.SaveReceptionPaymentsToPdfFile(fileName, new ReceptionBindingModel
-                {
-                    ClientId = Program.Client.Id,
-                    Date = model.From,
-                    DateTo = model.To
-                }, Program.Client.Email);
-            }
-            return View();
+                ReceptionId = reception.Id
+            }).Select(rec => rec.Sum).Sum();
+            return sum - paidSum;
         }
         public IActionResult SendExcelReport(int id)
         {
@@ -204,6 +206,5 @@ namespace VetClinicWbClient.Controllers
             _report.SaveReceptionServicesToExcelFile(fileName, reception, Program.Client.Email);
             return RedirectToAction("Reception");
         }
-
     }
 }

@@ -31,7 +31,6 @@ namespace VetClinicBusinessLogic.ViewModels
         [DataMember]
         [DisplayName("Оплачено")]
         public int LeftSum { get; set; }
-
         [DataMember]
         public virtual List<ReceptionServiceViewModel> ReceptionServices { get; set; }
     }

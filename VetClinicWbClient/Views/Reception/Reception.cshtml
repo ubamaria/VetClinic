@@ -3,31 +3,12 @@
     ViewData["Title"] = "Запись на прием";
 }
 
-<div class="text-center text-info">
-    <h1>Запись на прием</h1>
-</div>
+<h1>Запись на прием</h1>
 <hr />
-<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="reception" asp-action="CreateReception">Записаться</a></strong></p>
+<p> <strong> <a asp-area="" asp-controller="reception" asp-action="CreateReception">Записаться</a></strong></p>
 <hr />
-@using (Html.BeginForm())
-{
-    <p>
-        Выберите даты для отображения отчета по записям и оплатам
-    </p>
-    <p>
-        От: @Html.EditorFor(model => model.From)
-    </p>
-    <p>
-        До: @Html.EditorFor(model => model.To)
-    </p>
-    <p>
-        @Html.EditorFor(model => model.SendMail) Отправить отчёт по записям и оплатам на почту
-    </p>
-    <p>
-        <button type="submit" class="btn btn-info btn-sm">Получить</button>
-    </p>
-}
-<hr />
+<h1>Все записи:</h1>
+
 @foreach (var reception in ViewBag.receptions)
 {
     <p><strong>Номер: @reception.Id </strong></p>
@@ -73,14 +54,14 @@
     <hr />
     if (reception.ReceptionStatus == VetClinicBusinessLogic.Enums.ReceptionStatus.Оплачен)
     {
-        <p>Полностью оплачено</p>
+        <p><strong>Полностью оплачено</strong></p>
         <hr />
     }
     else
     {
         if (reception.ReceptionStatus == VetClinicBusinessLogic.Enums.ReceptionStatus.ОплаченЧастично)
         {
-            <p>К оплате: @reception.LeftSum</p>
+            <p><strong>К оплате: @reception.LeftSum</strong></p>
             <hr />
 
         }
@@ -89,11 +70,29 @@
         </p>
     }
     @*<p>
-        <a href="/Reception/SendWordReport/@travel.Id">Отправить список туров в формате .docx</a>
-    </p>*@
+            <a href="/Reception/SendWordReport/@travel.Id">Отправить список туров в формате .docx</a>
+        </p>*@
     <p>
         <a href="/Reception/SendExcelReport/@reception.Id">Отправить список услуг в формате .xslx</a>
     </p>
-    <hr />
-
 }
+<hr />
+@using (Html.BeginForm())
+{
+    <p>
+        Выберите даты для отображения отчета по приемам и платежам:
+    </p>
+    <p>
+        От: @Html.EditorFor(model => model.From)
+    </p>
+    <p>
+        До: @Html.EditorFor(model => model.To)
+    </p>
+    <p>
+        @Html.EditorFor(model => model.SendMail) Отправить по приемам и платежам: на почту
+    </p>
+    <p>
+            <button type="submit">Получить</button>
+        </p>
+}
+<hr />

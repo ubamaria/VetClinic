@@ -3,9 +3,8 @@
     ViewData["Title"] = "Мой питомец";
 }
 
-<div class="text-center text-info">
     <h1>@ViewData["Title"]</h1>
-</div>
+
 @using (Html.BeginForm("Pet", "Pet"))
 {
     <p>
@@ -20,7 +19,7 @@
         Пол:<br>
         @Html.TextBoxFor(x => x.Gender)
     </p>
-    @Html.ValidationSummary(true, "", new { @style = "color: red" })
-    <input type="submit" value="Добавить" class="btn btn-info btn-sm" />
+    @Html.ValidationSummary()
+    <input type="submit" value="Добавить"/>
 }
 

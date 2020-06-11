@@ -106,7 +106,7 @@ namespace VetClinicDatabaseImplement.Implements
                     ClientFIO = rec.Client.ClientFIO,
                     TotalSum = rec.TotalSum,
                     DateCreate = rec.DateCreate,
-                   
+                    LeftSum = rec.TotalSum - context.Payments.Where(recP => recP.ReceptionId == rec.Id).Select(recP => recP.Sum).Sum(),
                     ReceptionStatus = rec.ReceptionStatus,
                     ReceptionServices = GetReceptionServiceViewModel(rec)
                 })
